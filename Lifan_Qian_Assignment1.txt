@@ -1,0 +1,345 @@
+Scenarios: 
+
+1. Hiking
+
+
+Objects and Behaviors:
+
+Travelers
+Data: name, money
+Behavior: search, select, pay, drive, eat, hungry, get
+
+	CarRental
+		Data: name, model, price, distance
+		Behavior: search, charge
+
+	Car
+		Data: model, price, gasSign
+		Behavior: run
+
+	GasStation
+		Data: name, address, gasType, gasPrice 
+		Behavior: charge, fillGas
+
+	Restaurant:
+		Data: name, foodType, address, rating, price,
+		Behavior: provideFood, charge 
+
+	Park:
+		Data: name, address, ticketPrice, Exit
+		Behavior: charge
+
+	Hotel:
+		Data: name, address, roomType, roomPrice
+		Behavior: checkIn, checkout
+
+Sequence of Flow - Invoke Objects with Behaviors
+
+	Traveler	Evan, Philip, Paul
+	CaRental	ReachNow,
+Car 		Camry,
+	GasStation	Shell,
+	Restaurant	PandaExpress,
+	Park		Rainier,
+	Hotel		Hilton,
+
+If ReachNow.isAvaliable
+	ReachNow.search	-> model, price, distance: Collection of Car -> Collection of Car: CarChoice
+		If carChoice != 0
+Evan.select(CarChoice) = Camry
+ReachNow.charge(Camry.price) = carCost
+Evan.pay(carCost)
+Evan.get(Camry)
+Evan.drive	
+Else 
+			Chose another rental company
+End
+Else
+	Chose another rental company
+End
+
+
+Loop
+If Rainier.arrive = false
+If Camry.gasSign = true
+		Evan.searchGasStation	-> name, address, gasPrice: Collection of GasStation	-> Collection of GasStation: GasChoice
+		Evan.select(GasChoice) = shell
+		Evan.drive(shell)
+		Evan.selectgasType
+		Shell.fillGas(Camry) 	-> number of Gallon, gasPrice : GasCost
+		Shell.charge(GasCost)
+		Evan.pay(GasCost)
+Else
+	Evan.drive
+End
+
+If Evan.hungry = true & Philip.hungry = true & Paul.hungry = true
+	Evan.searchRestaurant  -> name,foodType address, price, rating : Collection of Restaurant -> Collection of Restaurant : RestaurantChoice
+	Evan.select(RestaurantChoice) = PandaExpress
+	Evan.drive(PandaExpress)
+	Evan.selectFoodType, Philip. selectFoodType , Paul. SelectFoodType	-> number of food, price : FoodCost
+	PandaExpress.charge(FoodCost)
+	Evan.pay(FoodCost)
+Else
+	Evan.drive
+End
+
+Evan.drive
+Else
+	Number of Ticket, ticketPrice	-> TicketCost
+	Rainier.charge(TicketCost)
+	Evan.pay(TicketCost)
+End
+
+If Rainier.Exit = true
+		Evan.searchHotel	-> name, address, roomType, roomPrice: Collection of Hotel-> Collection of Hotel: HotelChoice
+		Evan.select(HotelChoice) = Hilton	-> roomType, roomPrice : HotelCost
+		Evan.drive(Hilton)
+		Hilton.checkIn()
+		Hilton.charge(HotelCost)
+		Evan.pay(HotelCost)
+End
+
+
+
+2. Organise a career fair
+
+Objects and Behaviors:
+
+	Organiser
+		Data: name
+		Behavior: sendInvitation, receiveAcceptance, count, reserve, setupOpenTime, setupCloseTime, makeNotification 
+	
+	EmailList
+		Data: companyList, studentList
+		Behavior: pullFirst, removeFirst
+
+	Room
+		Data: name, index, address, roomCapacity
+		Behavior: open, close
+
+Sequence of invoking behaviors on Objects:
+
+	Organiser	Evan
+	EmailList	companyList
+	EmailList	studentList
+	Room		306
+
+	Loop
+	If companyList.isEmpty = false
+		companyList.pullFirst = company
+		Evan.sendInvitation(company)
+		companyList.removeFirst	
+	Else
+		break
+	End 
+	
+	Evan.count = numberOfCompany
+
+	Loop
+	If Evan.receiveAcceptance = true
+		numberOfComapny++
+	Else
+		break
+	End
+
+	Loop
+	If Index != 0
+		If Room.roomCapacity < numberOfCompany
+			Index--
+			Break
+		Else 
+Evan.reserve(Room.Index)
+	Else
+		Break
+	End
+
+	Evan.setupOpenTime = openTime
+	Evan.setupCloseTime = CloseTime
+	
+	Loop
+	If studentList.isEmpty = false
+		studentList.pullFirst = student
+		Evan.makeNotification(student, openTime, closeTime)
+		studentList.removeFirst	
+	Else
+		break
+	End 
+
+	If time = openTime
+		Room.open
+	Else
+		break
+	End
+
+	If time = closeTime
+		Room.close
+	Else
+		break
+	End
+	
+
+
+3. Order Pizza from Pizza Hut
+
+Objects and Behaviors:
+
+	Consumer:
+		Data: name, address, phoneNumber
+		Behaviors: call, pay, select
+	
+	Pizzhut:
+		Data: address, phoneNumber, pizzaSize, Topping, sauce, slide
+		Behavior:  receive, record, makeFood, delivery, deliveryStatus
+	
+Sequence of invoking behaviors on Objects:
+	
+	Consumer	Evan
+	Pizzahut	Pizzahut
+	
+
+	Evan.call(Pizzahut)
+	
+	Loop
+	If Pizzahut.receive = true
+		Evan.select(Pizzahut.pizzaSize)
+		Evan.select(Pizzahut.topping)
+		Evan.selcet(Pizzahut.sauce)
+		Evan.select(Pizzahut.slide)
+		Collection of Evan.select() = foodOrdered
+		Pizzahut.record(Evan.address, Evan.phoneNumber)
+		Pizzahut.makeFood(foodOrdered)
+		Pizzahut.delivery(foodOrdered)
+		
+Loop
+		If Pizzahut.deliveryStatus = true
+			Evan.pay
+		Else
+			contine
+		End
+	Else
+		Wait 5 minutes
+		Evan.call(Pizzahut)
+	End
+
+
+
+4.  Design a code sharing platform (eg: Github)
+
+Objects and Behaviors:
+
+	User
+		Data: name,username, password, emailAddressList
+		Behavior: logIn, logOut, upload, delete, edit
+	
+	Website
+		Data: URL, profile, filelist, 
+		Behavior: returnLogInPage, add, remove, change
+	
+	Database
+		Data: usernameList, password, emailAddress
+		Behavior: LogInStatus, search
+
+Sequence of invoking behaviors on Objects:
+	User		Evan
+	Website	Github
+	Database	Database
+	 
+	Evan.Login(Evan.username, Evan.password)
+	
+	If Database.usernameList.search(Evan.username) = true || Database.emailAddressList.search(Evan.username) = true
+		If Database.password = Evan.password
+			Github.returnLogInPage
+			Database.logInStatus = true
+		Else 
+			Return (username or password not correct)
+		End			
+	Else
+		Return (username or password not correct)
+	End
+	
+	If Database.logInStatus = true
+		If Evan.upload(assignment1)
+			Github.fileList.add(assignment1)
+		Else
+			break
+		End
+
+		If Evan.edit(assignment1)
+			Github.fileList.change(assignment1)
+		Else
+			break
+		End
+
+		If Evan.delete(assignment1)
+			Github.fileList.remove(assignment1)
+		Else
+			break
+		End
+		
+		If Evan.logOut
+			Database.logInStatus = false
+		Else
+			Break
+		End
+
+	Else
+		Return (You are not authorized to make any change)
+	End
+
+
+
+5.  Design a soft-drink/snacks vending machine
+
+Objects and Behaviors:
+	
+	VendingMachine
+		Data: serialNumber, drinkList, index, button, drinkRemain, price, totalCharge, screen
+		Behavior: getPressure, receivePayment, showStatus, status, dropDrink, reportStockout
+
+	
+	Sequence of invoking behaviors on Objects:
+		VendingMachine	Machine1
+
+
+Loop 
+If  index != 0
+	If Machine1.drinkList[index].drinkRemain > 0 
+		Machine1.button[index].showStatus(avaliable)
+		Machine1.drinkList[index].status = true
+	Else 
+		Machine1.button[index].showStatus(out of stock)
+		Machine1.drinkList[index].status = false
+	End
+	Index --
+Else
+	Break
+End
+		
+Loop
+If Machine1.button[index].receivePressure = true && Machine1.receiveCharge = false
+	If Machine1.drinkList[index].status = true
+		Machine1.button[index].receivePressure = true
+		Machine1.drinkList[index].dropDrink
+		Machine1.drinkList[index].drinkRemain - -
+		TotalCharge = totalCharge + Machine1.drinkList[index].price
+		Machine1.screen.showStatus(totalCharge)
+
+		If Machine1.drinkList[index].drinkRemain = 0
+			Machine1.button[index].showStatus(out of stock)
+			Machine1.drinkList[index].status = false
+			Machine1.drinkList[index].reportStockout
+		Else 
+			Break
+		End
+
+	Else
+		Machine1.screen.showStatus(the drink you choose is out of stock)
+	End
+
+Else if Machine1.button[index].receivePressure = true && Machine1.receiveCharge = true
+	Machine1.screen.showStatus(thanks for shopping)
+Else
+	Break
+End
+ 

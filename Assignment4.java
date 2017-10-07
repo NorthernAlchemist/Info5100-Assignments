@@ -201,11 +201,11 @@ class Driver{
     }
 }
 
-class Students{
+class Student{
     private String name;
     private int id;
 
-    Students(String name, int id){
+    Student(String name, int id){
         this.name = name;
         this.id = id;
     }
@@ -221,20 +221,19 @@ class Students{
 
 class Course{
     private String title;
-    private int numberOfStudents;
-    private String[] typeStudents = new String[10];
+    private int numberOfStudents = 0;
+    private Student[] students = new Student[10];
 
-    Course(String title, int numberOfStudents){
+    Course(String title){
         this.title = title;
-        this.numberOfStudents = numberOfStudents;
     }
 
-    void registerStudents(Students students){
+    void registerStudents(Student student){
         if (isFull() == true){
             System.out.println("The class is full");
         }else {
             this.numberOfStudents = numberOfStudents + 1;
-            typeStudents[numberOfStudents - 1] = students.getName();
+            students[numberOfStudents - 1] = student;
         }
 
     }
@@ -243,10 +242,6 @@ class Course{
         return this.numberOfStudents >= 10;
     }
 
-
-    String[] getStudetns(){
-        return typeStudents;
-    }
 
     String getTitle(){
         return title;
@@ -259,9 +254,9 @@ class Course{
 
 class Test{
     public static void main (String arg[]){
-        Students L = new Students("L",1);
-        Students Q = new Students("Q",2);
-        Course java = new Course("java",0);
+        Student L = new Student("L",1);
+        Student Q = new Student("Q",2);
+        Course java = new Course("java");
         java.registerStudents(L);
         java.registerStudents(Q);
         System.out.println(java.getNumberOfStudents());

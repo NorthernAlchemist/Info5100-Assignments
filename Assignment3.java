@@ -3,6 +3,7 @@ package class1;
 import java.util.Arrays;
 import java.util.Scanner;
 
+// score : 10
 public class Assignment3 {
 
     public static void main(String[] args) {
@@ -59,12 +60,15 @@ public class Assignment3 {
 
     
     public static String removeVowelsFromString(String input){
+	// It will be better if you have a null check here
         String results = input.replaceAll("[aeiouAEIOU]", "");
         return results;
     }
 
 
     public static boolean checkIfTwoStringsAreAnagrams(String s1, String s2){
+	// please check out the difference between "==" and ".equals()"
+	// Think about the test case for new String("test") == "test", it will return false
         if (s1 == s2){
             throw new IllegalArgumentException("You can't input two same strings.");
         }

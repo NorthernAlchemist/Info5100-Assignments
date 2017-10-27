@@ -39,6 +39,7 @@ public class PartB{
             n -= rowK;
             if (n < 0) break;
             row++;
+            // Why rowK * 2, test case 10 should return 4, score -7
             rowK *= 2;
         }
         return row;

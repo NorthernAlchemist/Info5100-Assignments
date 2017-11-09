@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Hangman {
+    // You should initialize variables in constructor
     private ArrayList<String> wordList = new ArrayList<>();
     private ArrayList<Character> correctList = new ArrayList<>();
     private ArrayList<Character> wrongList = new ArrayList<>();
@@ -59,6 +60,7 @@ public class Hangman {
                 System.out.println("You have already guessed this letter");
             } else if (word.contains(guess)){
                 correctList.add(guess.charAt(0));
+                // try to separate the logic of validate guess and print the result
                 System.out.println("previously guessed number" + Arrays.toString(correctList.toArray()) + Arrays.toString(wrongList.toArray()));
                 displayWord(word);
                 printHangman();

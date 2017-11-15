@@ -1,0 +1,4 @@
+There are two sorted arrays nums1 and nums2.
+Their sizes are m and n respectively.
+Find the median of the two sorted arrays.
+The overall run time complexity should be O(log (m+n)).

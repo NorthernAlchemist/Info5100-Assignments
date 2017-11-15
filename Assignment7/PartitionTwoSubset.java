@@ -1,17 +1,60 @@
 package Assignment7;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PartitionTwoSubset {
     public static void main(String[] args){
         //int[] test = {1, 3, 5, 9};
         //int[] test = {1, 3, 5, 11};
         //int[] test = {1, 3};
-        int[] test = {1, 11, 5, 5};
+        //int[] test = {1, 11, 5, 5};
+        //int[] test = {1, -3 , -6, 8, -4, 2, -6};
+        int[] test = {-2, -3, 6, 4, 10, -5, -118};
         System.out.print(findPartition(test));
     }
 
-    public static boolean findPartition (int[] arr) {
+    //Works for all integer input
+    //But I thought if the integer call be both positive or negative
+    // then it loks like a NP-problem.
+    public static boolean findPartition(int[] arr){
+        if (arr == null || arr.length == 0) return true;
+        Map<Integer, Integer> map = new HashMap<>();
+        int sum = 0;
+        for (int num : arr) {
+            sum += num;
+
+            if(map.containsKey(num)){
+                map.put(num, map.get(num) + 1);
+            }else{
+                map.put(num, 1);
+            }
+        }
+
+        if (sum % 2 > 0) return false;
+        sum /= 2;
+        return helper(map, sum);
+    }
+
+    private static boolean helper(Map<Integer, Integer> map, int sum){
+        if (map.containsKey(sum) && map.get(sum) > 0) return true;
+
+        for (int key : map.keySet()){
+            if (key < sum && map.get(key) > 0){
+                map.put(key, map.get(key) - 1);
+                if (helper(map, sum - key)) return true;
+                //backtracking
+                map.put(key, map.get(key) + 1);
+            }
+        }
+        return false;
+    }
+
+
+
+    //This should only works when all integers in array are positive
+    public static boolean findPartitionAllPositive (int[] arr) {
         if (arr == null || arr.length == 0) return true;
 
         int sum = 0;

@@ -49,5 +49,4 @@ class AtmTest {
     @Test
     void testGetUserList() {
     }
-
 }

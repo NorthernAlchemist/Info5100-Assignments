@@ -224,5 +224,4 @@ public class Hand extends GroupOfCards {
 
         return index;
     }
-
 }
